@@ -1,0 +1,26 @@
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+
+//不需要连接服务器
+public class UDPClientDemo1 {
+    public static void main(String[] args) throws Exception {
+        //1。建立一个Socket
+        DatagramSocket socket = new DatagramSocket();
+
+        //2.建立包
+        String message = "你好呀";
+
+        //发送给谁
+        InetAddress localhost = InetAddress.getByName("localhost");
+        int port = 9090;
+        //数据，数据的长度起始，发送给谁
+        DatagramPacket datagramPacket = new DatagramPacket(message.getBytes(),0,message.length(),localhost,port);
+        //3.发送包
+        socket.send(datagramPacket);
+        //4.关闭流
+        socket.close();
+    }
+}
