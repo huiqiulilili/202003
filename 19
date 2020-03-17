@@ -1,0 +1,26 @@
+package 网络编程.com.hui.lesson1.com.hui.com.hui.chart;
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
+public class UdpServce {
+    public static void main(String[] args) throws Exception {
+        DatagramSocket socket = new DatagramSocket(6666);
+
+        while (true) {
+            //准备接收包裹
+            byte[] bytes = new byte[1024];
+            DatagramPacket datagramPacket = new DatagramPacket(bytes, 0, bytes.length);
+            socket.receive(datagramPacket);//阻塞式接受包裹
+            //断开连接
+            byte[] data = datagramPacket.getData();
+            String s = new String(data, 0, data.length);
+            System.out.println(s);
+            if(s.equals("bye")) {
+                break;
+            }
+        }
+        socket.close();
+    }
+}
