@@ -1,0 +1,44 @@
+package 网络编程.com.hui.lesson1.com.hui.com.hui.多线程;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.*;
+
+public class TalkSend implements Runnable {
+    DatagramSocket socket = null;
+    BufferedReader bufferedReader = null;
+
+    private int fromPort;
+    private String toIP;
+    private int toPort;
+
+    public TalkSend(int fromPort, String toIP, int toPort) {
+        this.fromPort = fromPort;
+        this.toIP = toIP;
+        this.toPort = toPort;
+        try {
+            socket = new DatagramSocket(fromPort);
+            bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void run() {
+
+        try {
+            while (true) {
+                String data = bufferedReader.readLine();
+                byte[] dataBytes = data.getBytes();
+                DatagramPacket datagramPacket = new DatagramPacket(dataBytes, 0, dataBytes.length, new InetSocketAddress(this.toIP, this.toPort));
+                socket.send(datagramPacket);
+                if(data.equals("bye")) {
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    socket.close();
+    }
+}
