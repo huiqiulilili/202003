@@ -1,0 +1,45 @@
+package 网络编程.com.hui.lesson1.com.hui.lesson2;
+
+import java.io.*;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+//客户端
+public class TCPClientDemo2 {
+    public static void main(String[] args) throws Exception {
+        //1.创建一个Socket连接
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 9000);
+        //2.创建一个输出流
+        OutputStream outputStream = socket.getOutputStream();
+
+        //3.读取文件
+        FileInputStream fileInputStream = new FileInputStream(new File("1.png"));
+        //4.写出文件
+        byte[] bytes = new byte[1024];
+        int len = 0;
+        while ((len = fileInputStream.read()) != -1) {
+            outputStream.write(bytes,0,len);
+        }
+
+        //通知服务器，我i已经结束了
+        socket.shutdownOutput();//我已经传输完了
+
+        //确定服务器接收完毕才能断开连接
+        InputStream inputStream = socket.getInputStream();
+        //String byte[]
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] bytes1 =  new byte[1024];
+        int len2 = 0;
+        while ((len2 = inputStream.read()) != -1) {
+            byteArrayOutputStream.write(bytes1,0,len2);
+        }
+        System.out.println(byteArrayOutputStream.toString());
+        //5.关闭异常
+        byteArrayOutputStream.close();
+        inputStream.close();
+        fileInputStream.close();
+        outputStream.close();
+        socket.close();
+    }
+}
