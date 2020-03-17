@@ -1,0 +1,43 @@
+package 网络编程.com.hui.lesson1.com.hui.com.hui.多线程;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
+public class TalkReceive implements Runnable {
+    DatagramSocket socket = null;
+    private int port;
+    private String mesFrom;
+
+    public TalkReceive(int port,String mesFrom) {
+        this.mesFrom = mesFrom;
+        this.port = port;
+        try {
+            socket = new DatagramSocket(port);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void run() {
+
+        try {
+            while (true) {
+                //准备接收包裹
+                byte[] bytes = new byte[1024];
+                DatagramPacket datagramPacket = new DatagramPacket(bytes, 0, bytes.length);
+                socket.receive(datagramPacket);//阻塞式接受包裹
+                //断开连接
+                byte[] data = datagramPacket.getData();
+                String s = new String(data, 0, data.length);
+                System.out.println( mesFrom+":"+ s);
+                if(s.equals("bye")) {
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
