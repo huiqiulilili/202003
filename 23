@@ -1,0 +1,45 @@
+package test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class LCA {
+    public static int getLCA(int a, int b) {
+        // write code here
+        if(a==b ){
+            return a;
+        }
+        List<Integer> lista = new ArrayList<Integer>();
+        List<Integer> listb = new ArrayList<Integer>();
+        while (a != 1) {
+            lista.add(a);
+            a /= 2;
+        }
+        while (b != 1) {
+            listb.add(b);
+            b /= 2;
+        }
+        int aa = lista.size();
+        int bb = listb.size();
+
+        List<Integer> minList = lista;
+        List<Integer> maxList = listb;
+        int min = aa;
+        if(aa > bb) {
+            minList = listb;
+            maxList = lista;
+            min = bb;
+        }
+        for(int i = 0;i < min;i ++) {
+            if(maxList.contains(minList.get(i))) {
+                return minList.get(i);
+            }
+        }
+        return 1;
+    }
+
+    public static void main(String[] args) {
+        int lca = getLCA(8, 9);
+        System.out.println(lca);
+    }
+}
