@@ -1,0 +1,29 @@
+package com.test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main3 {
+    public static void main(String[] args) {
+        Scanner scanner  = new Scanner(System.in);
+        String line1 = scanner.nextLine();
+        String line2 = scanner.nextLine();
+        StringBuffer sb = new StringBuffer();
+        List<Character> list = new ArrayList<Character>();
+        List<Character> list1 = new ArrayList<Character>();
+        List<Character> list2 = new ArrayList<Character>();
+        for(int i = 0;i < line1.length(); i++) {
+            list1.add(line1.charAt(i));
+        }
+        for(int i = 0;i < line2.length(); i++) {
+            list1.add(line2.charAt(i));
+        }
+        for(int i = 0;i < line1.length();i ++) {
+            if(!list2.contains(list1.get(i))) {
+                sb.append(list1.get(i));
+            }
+        }
+        System.out.println(sb.toString());
+    }
+}
