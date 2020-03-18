@@ -1,0 +1,23 @@
+package test;
+
+public class Main {
+    public String replaceSpace(String iniString, int length) {
+        // write code here
+        StringBuffer sb = new StringBuffer();
+        String[] array = new String[length];
+        for(int i = 0;i < length;i ++) {
+            if(iniString.charAt(i) != ' ') {
+                array[i] = iniString.charAt(i) + "";
+            }else {
+                array[i] = "%20";
+            }
+            sb.append(array[i]);
+        }
+
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        String s = "hello  word";
+    }
+}
