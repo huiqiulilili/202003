@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            int year = scanner.nextInt();
+//            scanner.nextLine();
+            int month = scanner.nextInt();
+//            scanner.nextLine();
+            int day = scanner.nextInt();
+//            scanner.nextLine();
+            System.out.println(calaulate(year,month,day));
+        }
+    }
+
+    private static int calaulate(int year, int month, int day) {
+        int[] dayofMonth = {31,28,31,30,31,30,31,31,30,31,30,31};
+        // 如果是闰年
+        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+            dayofMonth[1] = 29;
+        }
+
+        if(month < 1 || month > 12 || day < 1 || day > dayofMonth[month - 1] ) {
+            return -1;
+        }
+        for (int i = 0; i <  month - 1; i++) {
+            day += dayofMonth[i];
+        }
+        return day;
+    }
+}
