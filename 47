@@ -1,0 +1,54 @@
+import java.util.Scanner;
+
+public class Main2 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+            String decrypted = scanner.nextLine();
+            String encrypted = scanner.nextLine();
+            encrypted(decrypted);
+            decrypted(encrypted);
+    }
+
+    private static void decrypted(String encrypted) {
+        String newEncrypted= encrypted.toLowerCase();
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0;i < newEncrypted.length();i ++) {
+            if(newEncrypted.charAt(i) == 'a') {
+                sb.append("z");
+            }else
+            if(newEncrypted.charAt(i) == '0') {
+                sb.append("9");
+            }else
+            if((newEncrypted.charAt(i) >= '1' && newEncrypted.charAt(i)<= '9') || (newEncrypted.charAt(i)>='b' && newEncrypted.charAt(i) <= 'z')  )
+            {
+                sb.append((char)(newEncrypted.charAt(i) - 1));
+            }else {
+                sb.append(newEncrypted.charAt(i));
+
+            }
+        }
+        System.out.println(sb);
+    }
+
+    private static void encrypted(String decrypted) {
+        String newDecrypted = decrypted.toUpperCase();
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0;i < newDecrypted.length();i ++) {
+            if(newDecrypted.charAt(i) == 'Z') {
+                sb.append("A");
+            }else
+            if(newDecrypted.charAt(i) == '9') {
+                sb.append("0");
+            }else
+            if((newDecrypted.charAt(i)>='0' && newDecrypted.charAt(i) <= '8') || (newDecrypted.charAt(i)>='A' && newDecrypted.charAt(i) <= 'Y')  )
+            {
+                sb.append((char)(newDecrypted.charAt(i) + 1));
+            }else
+            {
+                sb.append(newDecrypted.charAt(i));
+            }
+        }
+        System.out.println(sb);
+    }
+}
