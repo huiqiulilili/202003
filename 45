@@ -1,0 +1,22 @@
+import java.io.*;
+
+public class PersonTest {
+    public static void main(String[] args) throws Exception {
+        test();
+        test2();
+    }
+
+    // 序列化
+    private static void test() throws Exception {
+        ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(new File("a.txt")));
+        Person person = new Person("张三",18);
+        stream.writeObject(person);
+    }
+
+    // 反序列化
+    private static void test2()throws Exception  {
+        ObjectInputStream stream = new ObjectInputStream(new FileInputStream(new File("a.txt")));
+        Person o = (Person)stream.readObject();
+        System.out.println(o);
+    }
+}
